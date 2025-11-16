@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cucina - New Life</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg: #050505;
+      --panel: #101010;
+      --panel-soft: #151515;
+      --gold: #d4af37;
+      --gold-soft: rgba(212, 175, 55, 0.22);
+      --gold-light: #f5c469;
+      --muted: #cfcfcf;
+      --text-strong: #f5f5f5;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--bg);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding-bottom:60px;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    /* HEADER / NAV */
+    header{
+      background: radial-gradient(circle at top left, #1c1c1c 0, #050505 60%, #020202 100%);
+      padding:14px 16px;
+      border-bottom:1px solid rgba(212,175,55,0.18);
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+
+    .brand-title{
+      font-family:"Playfair Display", serif;
+      letter-spacing:0.28em;
+      text-transform:uppercase;
+      font-size:17px;
+      color:var(--text-strong);
+    }
+
+    .brand-sub{
+      font-size:11px;
+      color:#9f9f9f;
+      font-style:italic;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+    }
+
+    .nav-links a{
+      position:relative;
+      color:var(--muted);
+      font-weight:500;
+      padding-bottom:3px;
+      white-space:nowrap;
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:0;
+      height:1px;
+      background-color:var(--gold);
+      transition:width .22s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{
+      width:100%;
+    }
+
+    .nav-links a[aria-current="page"]{
+      color:var(--gold-light);
+    }
+
+    /* MAIN */
+    main{
+      max-width:1100px;
+      margin:26px auto 0;
+      padding:0 16px;
+    }
+
+    /* HERO / INTRO */
+    .hero{
+      border-radius:18px;
+      padding:22px 22px 18px;
+      background: radial-gradient(circle at top left, rgba(212,175,55,0.12) 0, #151515 55%, #101010 100%);
+      border:1px solid var(--gold-soft);
+      box-shadow:0 14px 32px rgba(0,0,0,0.6);
+      margin-bottom:30px;
+    }
+
+    .hero-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.22em;
+      color:var(--gold-light);
+      margin-bottom:6px;
+    }
+
+    .hero-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-title h1{
+      color:var(--text-strong);
+      margin:0;
+      font-size:26px;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      font-family:"Playfair Display", serif;
+    }
+
+    .hero-title span{
+      font-size:12px;
+      color:#b3b3b3;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+    }
+
+    .hero p{
+      margin:10px 0 0;
+      color:#dedede;
+      max-width:740px;
+      font-size:14px;
+    }
+
+    /* SEZIONI MENU */
+    .menu-section{
+      margin-top:32px;
+    }
+
+    .menu-section:first-of-type{
+      margin-top:20px;
+    }
+
+    .menu-section-header{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+      border-bottom:1px solid rgba(212,175,55,0.25);
+      padding-bottom:6px;
+    }
+
+    .menu-section h2{
+      color:var(--gold-light);
+      font-size:16px;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      margin:0;
+    }
+
+    .menu-section small{
+      font-size:11px;
+      color:#9f9f9f;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+    }
+
+    .menu-list{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .menu-item{
+      background:linear-gradient(120deg, var(--panel) 0%, var(--panel-soft) 100%);
+      border-radius:12px;
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow:0 6px 18px rgba(0,0,0,0.5);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .menu-item:hover{
+      transform:translateY(-2px);
+      box-shadow:0 10px 26px rgba(0,0,0,0.7);
+      border-color:var(--gold-soft);
+      background:linear-gradient(120deg, #181818 0%, #202020 100%);
+    }
+
+    .menu-item-title{
+      flex:1;
+      min-width:0;
+    }
+
+    .menu-item h4{
+      color:var(--text-strong);
+      margin:0 0 2px;
+      font-size:14px;
+      font-weight:500;
+    }
+
+    .menu-item-price{
+      white-space:nowrap;
+      font-weight:600;
+      font-size:14px;
+      color:var(--gold-light);
+      margin-top:2px;
+    }
+
+    footer{
+      background:#050505;
+      color:#888;
+      text-align:center;
+      padding:22px 20px;
+      margin-top:46px;
+      font-size:11px;
+      border-top:1px solid rgba(212,175,55,0.15);
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+    }
+
+    footer span{
+      color:var(--gold-light);
+    }
+
+    @media (max-width:768px){
+      header{padding:10px 12px;}
+      .nav{flex-direction:column; align-items:flex-start;}
+      .nav-links{flex-wrap:wrap; justify-content:flex-start;}
+      .hero{padding:18px 16px;}
+      .hero-title h1{font-size:22px;}
+    }
+
+    @media (max-width:480px){
+      .hero{border-radius:14px;}
+      .hero-title{flex-direction:column; align-items:flex-start;}
+      .menu-item{flex-direction:row;}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav" role="navigation" aria-label="Navigazione principale">
+      <a class="brand" href="homepage1.html">
+        <span class="brand-title">NEW LIFE</span>
+        <span class="brand-sub">Caffetteria &amp; Cucina</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Link principali">
+        <a href="homepage1.html">Home</a>
+        <a href="cucina.html" aria-current="page">Cucina</a>
+        <a href="caffetteria.html">Caffetteria</a>
+        <a href="chi-siamo.html">Chi Siamo</a>
+        <a href="contatti.html">Contatti</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-label">Cucina · Menù</div>
+      <div class="hero-title">
+        <h1 id="hero-title">La nostra cucina</h1>
+        <span>Piatti del giorno · Menù interno</span>
+      </div>
+      <p>
+        Piatti curati nei dettagli, preparati con ingredienti freschi e genuini.
+        Una proposta pensata per un’esperienza culinaria raffinata, nel segno di New Life.
+      </p>
+    </section>
+
+    <section class="menu-section" aria-label="Primi Piatti">
+      <div class="menu-section-header">
+        <h2>Primi</h2>
+        <small>Piatti del giorno</small>
+      </div>
+      <div class="menu-list">
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Risotto con Zucca, Salsiccia e Ristretto al Sangiovese</h4>
+          </div>
+          <div class="menu-item-price">€ 12</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Tagliatelle fatte in casa con Prosciutto e Scalogno / Ragù / Pomodoro e Basilico</h4>
+          </div>
+          <div class="menu-item-price">€ 10</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Vellutata di Cavolfiore con Dadolata di Rapa Rossa e Crostini</h4>
+          </div>
+          <div class="menu-item-price">€ 9</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="menu-section" aria-label="Secondi Piatti">
+      <div class="menu-section-header">
+        <h2>Secondi</h2>
+        <small>Carne &amp; proposte del giorno</small>
+      </div>
+      <div class="menu-list">
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Bocconcini di Pollo ai Funghi</h4>
+          </div>
+          <div class="menu-item-price">€ 14</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Arrosticini di Suino con Peperoni</h4>
+          </div>
+          <div class="menu-item-price">€ 13</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Tagliata di Angus con Contorno del Giorno</h4>
+          </div>
+          <div class="menu-item-price">€ 18</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Filetto di Maialino con Cipolla Caramellata</h4>
+          </div>
+          <div class="menu-item-price">€ 20</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Insalatona Greca (insalata verde, cetrioli, pomini, olive, feta e origano)</h4>
+          </div>
+          <div class="menu-item-price">€ 11</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="menu-section" aria-label="Contorni">
+      <div class="menu-section-header">
+        <h2>Contorni</h2>
+        <small>Verdure &amp; accompagnamenti</small>
+      </div>
+      <div class="menu-list">
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Finocchi al Pane Profumato</h4>
+          </div>
+          <div class="menu-item-price">€ 5</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Insalata Mista / Pinzimonio</h4>
+          </div>
+          <div class="menu-item-price">€ 4</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Ratatouille di Verdure</h4>
+          </div>
+          <div class="menu-item-price">€ 6</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="menu-section" aria-label="Dolci e Dessert">
+      <div class="menu-section-header">
+        <h2>Dolci e Dessert</h2>
+        <small>Fine pasto</small>
+      </div>
+      <div class="menu-list">
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Torta di Fichi e Cioccolato di Modica</h4>
+          </div>
+          <div class="menu-item-price">€ 6</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Crostata di Ricotta, Mascarpone e Cioccolato</h4>
+          </div>
+          <div class="menu-item-price">€ 5</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Torta Caprese (mandorle aromatizzate alla Sambuca)</h4>
+          </div>
+          <div class="menu-item-price">€ 6</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Crespelle con Salsa agli Agrumi Flambate al Cointreau</h4>
+          </div>
+          <div class="menu-item-price">€ 7</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Piadina Romagnola alla Nutella</h4>
+          </div>
+          <div class="menu-item-price">€ 4</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Meringa con Crema alla Vaniglia e Limone</h4>
+          </div>
+          <div class="menu-item-price">€ 5</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Crema Chantilly con Crumble di Frolla e Cioccolato</h4>
+          </div>
+          <div class="menu-item-price">€ 6</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Frutta Fresca di Stagione (mele, pere, kiwi o banana)</h4>
+          </div>
+          <div class="menu-item-price">€ 4</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Crema al Caffè o al Tiramisù</h4>
+          </div>
+          <div class="menu-item-price">€ 5</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Macedonia di Frutta Fresca</h4>
+          </div>
+          <div class="menu-item-price">€ 4</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Centrifuga di Frutta e/o Verdura</h4>
+          </div>
+          <div class="menu-item-price">€ 4</div>
+        </article>
+
+        <article class="menu-item">
+          <div class="menu-item-title">
+            <h4>Sorbetto: limone / fragola / caffè / cioccolato / panna cotta</h4>
+          </div>
+          <div class="menu-item-price">€ 5</div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><span>&copy; 2025 New Life Bar</span> · Tutti i diritti riservati</p>
+  </footer>
+
+</body>
+</html>

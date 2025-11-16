@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Life - Caffetteria & Cucina</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* Reset base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body, h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0b0b0b;
+            color: #f7f7f7;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Colori principali */
+        :root {
+            --gold: #d4af37;
+            --gold-soft: rgba(212, 175, 55, 0.18);
+            --dark: #0b0b0b;
+            --dark-soft: #181818;
+        }
+
+        /* --- Schermata iniziale del logo --- */
+        .logo-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, #1c1c1c 0, #000 55%, #000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeOut 2.1s ease-in-out 2.3s forwards;
+        }
+
+        .logo-screen img {
+            max-width: 320px;   /* INGRANDITO */
+            width: 60vw;        /* INGRANDITO */
+            max-height: 320px;  /* INGRANDITO */
+            animation: fadeIn 1.6s ease-out;
+            filter: drop-shadow(0 10px 26px rgba(0,0,0,0.65));
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            background: rgba(10,10,10,0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-left img {
+            max-height: 54px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 0.28em;
+            color: #f7f7f7;
+        }
+
+        .slogan {
+            font-size: 12px;
+            color: #bfbfbf;
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .nav-links a {
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--gold);
+            transition: width 0.25s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a:focus-visible::after {
+            width: 100%;
+        }
+
+        .nav-links a:focus-visible {
+            outline: none;
+            color: var(--gold);
+        }
+
+        /* Pulsante prenota in navbar */
+        .nav-cta {
+            margin-left: 10px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--gold);
+            background-color: var(--gold);
+            color: #111;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-weight: 500;
+            transition: background-color 0.25s ease, color 0.25s ease, transform 0.15s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #f1d26a;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        .btn-primary span {
+            margin-left: 6px;
+            font-size: 13px;
+        }
+
+        /* Contenuto principale: spazio sotto la navbar */
+        .page-content {
+            padding-top: 92px;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, #111 0%, #181818 55%, #141414 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 22px 32px;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 4fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .hero-text h1 span {
+            color: var(--gold);
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            color: #d1d1d1;
+            max-width: 450px;
+            margin-bottom: 26px;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-size: 13px;
+            color: #bbbbbb;
+            margin-bottom: 26px;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .hero-meta-label {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 11px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .hero-actions .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--gold-soft);
+            background-color: transparent;
+            color: #f7f7f7;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-weight: 400;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .hero-actions .btn-secondary:hover {
+            background-color: rgba(212,175,55,0.08);
+            border-color: var(--gold);
+        }
+
+        .hero-images {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 12px;
+        }
+
+        .hero-images img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.65);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .hero-images img:nth-child(1) {
+            grid-row: span 2;
+            height: 100%;
+            max-height: 330px;
+        }
+
+        .hero-images img:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 38px rgba(0,0,0,0.75);
+        }
+
+        /* Fascia orari */
+        .info-strip {
+            background-color: #050505;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .info-strip-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #bfbfbf;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .info-label {
+            color: var(--gold);
+        }
+
+        .info-value {
+            opacity: 0.9;
+        }
+
+        .info-strip a {
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+        }
+
+        /* Sezione categorie */
+        .categorie-section {
+            background-color: var(--dark);
+            padding: 52px 22px 64px;
+        }
+
+        .categorie-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .categorie-header {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .categorie-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #f7f7f7;
+            margin-bottom: 8px;
+        }
+
+        .categorie-header h2 span {
+            color: var(--gold);
+        }
+
+        .categorie-header p {
+            font-size: 14px;
+            color: #bbbbbb;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .categorie {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            justify-items: stretch;
+        }
+
+        .categoria {
+            background: radial-gradient(circle at top left, rgba(212,175,55,0.07) 0, #111 55%, #111 100%);
+            padding: 24px 22px 26px;
+            border-radius: 16px;
+            border: 1px solid var(--gold-soft);
+            box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .categoria h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #f7f7f7;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .categoria p {
+            font-size: 14px;
+            color: #d4d4d4;
+            margin-bottom: 18px;
+        }
+
+        .categoria a {
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--gold);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #f7f7f7;
+            transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+        }
+
+        .categoria a::after {
+            content: "›";
+            font-size: 13px;
+            transform: translateY(1px);
+        }
+
+        .categoria:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 36px rgba(0,0,0,0.65);
+            border-color: rgba(212,175,55,0.55);
+            background: radial-gradient(circle at top left, rgba(212,175,55,0.12) 0, #111 55%, #111 100%);
+        }
+
+        .categoria:hover a {
+            background-color: var(--gold);
+            color: #111;
+            transform: translateY(-1px);
+        }
+
+        .categoria a:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #050505;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            color: #bfbfbf;
+            text-align: center;
+            padding: 22px 16px 26px;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        footer span {
+            color: var(--gold);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                padding-top: 40px;
+            }
+
+            .hero-images {
+                order: -1;
+            }
+
+            .hero-text h1 {
+                font-size: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 10px 16px;
+            }
+
+            .nav-left img {
+                max-height: 46px;
+            }
+
+            .site-name {
+                font-size: 20px;
+                letter-spacing: 0.22em;
+            }
+
+            .slogan {
+                font-size: 11px;
+            }
+
+            .nav-links {
+                display: none; /* se poi vuoi un menu hamburger, lo aggiungiamo qui */
+            }
+
+            .page-content {
+                padding-top: 80px;
+            }
+
+            .hero-inner {
+                padding-inline: 18px;
+            }
+
+            .info-strip-inner {
+                padding-inline: 18px;
+            }
+
+            .categorie-section {
+                padding: 42px 18px 54px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-screen img {
+                width: 60vw;
+                max-width: 220px;
+            }
+
+            .hero-text h1 {
+                font-size: 26px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .categoria {
+                padding: 20px 18px 22px;
+            }
+
+            .info-strip-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Schermata logo iniziale -->
+    <div class="logo-screen">
+        <img src="890ffa30-42d0-495f-b653-e80a8a9d56ce.png" alt="Logo New Life" />
+    </div>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-left">
+                <img src="58d9d803-cfbf-40af-8c6f-38044ded058a.png" alt="Logo New Life" />
+                <div class="logo-text">
+                    <span class="site-name">NEW LIFE</span>
+                    <span class="slogan">Ogni chicco racconta una storia di cura e qualità</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="cucina.html">Cucina</a>
+                <a href="caffetteria.html">Caffetteria</a>
+                <a href="chi-siamo.html">Chi siamo</a>
+                <a href="contatti.html">Contatti</a>
+                <div class="nav-cta">
+                    <a class="btn-primary" href="tel:+390000000000">
+                        Prenota
+                        <span>●</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenuto principale -->
+    <main class="page-content">
+        <!-- Hero -->
+        <section class="hero" aria-label="Presentazione New Life">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <h1><span>New Life</span> Caffetteria & Cucina</h1>
+                    <p class="hero-subtitle">
+                        Un ambiente accogliente, una proposta gastronomica curata e una caffetteria attenta ad ogni dettaglio.
+                        Ogni giorno selezioniamo ingredienti di qualità per offrirvi un’esperienza sobria, elegante e autentica.
+                    </p>
+                    <div class="hero-meta">
+                        <div class="hero-meta-item">
+                            <span class="hero-meta-label">Cucina</span>
+                            <span>Pranzo e proposte del giorno</span>
+                        </div>
+                        <div class="hero-meta-item">
+                            <span class="hero-meta-label">Caffetteria</span>
+                            <span>Specialità di caffè, colazioni e dolci</span>
+                        </div>
+                    </div>
+                    <div class="hero-actions">
+                        <a class="btn-primary" href="tel:+390000000000">
+                            Prenota un tavolo
+                            <span>●</span>
+                        </a>
+                        <a class="btn-secondary" href="contatti.html#prenotazioni">
+                            Informazioni e contatti
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-images" aria-hidden="true">
+                    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=900&q=80" alt="Selezione di piatti eleganti" />
+                    <img src="https://images.unsplash.com/photo-1617196039893-8c53fcae4ed3?auto=format&fit=crop&w=900&q=80" alt="Caffè con dolci artigianali" />
+                    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Proposta gastronomica in degustazione" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Fascia orari e info rapide -->
+        <section class="info-strip" aria-label="Orari e informazioni principali">
+            <div class="info-strip-inner">
+                <div class="info-item">
+                    <span class="info-label">Orari:</span>
+                    <span class="info-value">Lunedì – Venerdì 7:00–22:00 · Sabato e Domenica 8:00–23:00</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Indirizzo:</span>
+                    <span class="info-value">Via Esempio 123, 41000 Città (MO)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Prenotazioni:</span>
+                    <span class="info-value">
+                        Tel. <a href="tel:+390000000000">+39 000 0000000</a>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione categorie -->
+        <section class="categorie-section">
+            <div class="categorie-wrapper">
+                <div class="categorie-header">
+                    <h2><span>Le nostre</span> sezioni</h2>
+                    <p>
+                        Scoprite le diverse anime del New Life: dalla cucina alla caffetteria, fino alla nostra storia e ai contatti per informazioni e prenotazioni.
+                    </p>
+                </div>
+
+                <div class="categorie" aria-label="Sezioni del locale New Life">
+                    <article class="categoria">
+                        <div>
+                            <h3>Cucina</h3>
+                            <p>
+                                Un menù che varia seguendo la stagionalità e la disponibilità delle materie prime,
+                                con piatti pensati per un pranzo curato ma essenziale.
+                            </p>
+                        </div>
+                        <a href="cucina.html">Scopri la cucina</a>
+                    </article>
+
+                    <article class="categoria">
+                        <div>
+                            <h3>Caffetteria</h3>
+                            <p>
+                                Una selezione di caffè, cappuccini e specialità calde e fredde, accompagnate da
+                                proposte di pasticceria e dolci artigianali.
+                            </p>
+                        </div>
+                        <a href="caffetteria.html">Scopri la caffetteria</a>
+                    </article>
+
+                    <article class="categoria">
+                        <div>
+                            <h3>Chi siamo</h3>
+                            <p>
+                                La storia del New Life, i valori in cui crediamo e la filosofia che guida
+                                ogni scelta, dalla sala alla cucina.
+                            </p>
+                        </div>
+                        <a href="chi-siamo.html">Approfondisci</a>
+                    </article>
+
+                    <article class="categoria">
+                        <div>
+                            <h3>Contatti</h3>
+                            <p>
+                                Informazioni, orari e modalità di contatto per richieste, collaborazioni
+                                o prenotazioni.
+                            </p>
+                        </div>
+                        <a href="contatti.html">Vai ai contatti</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <span>&copy; 2025 New Life</span> &nbsp;–&nbsp; Caffetteria &amp; Cucina · Tutti i diritti riservati
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chi Siamo - New Life</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg: #050505;
+      --panel: #101010;
+      --panel-soft: #151515;
+      --gold: #d4af37;
+      --gold-soft: rgba(212, 175, 55, 0.22);
+      --gold-light: #f5c469;
+      --muted: #cfcfcf;
+      --text-strong: #f5f5f5;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--bg);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding-bottom:60px;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    header{
+      background: radial-gradient(circle at top left, #1c1c1c 0, #050505 60%, #020202 100%);
+      padding:14px 16px;
+      border-bottom:1px solid rgba(212,175,55,0.18);
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+
+    .brand-title{
+      font-family:"Playfair Display", serif;
+      letter-spacing:0.28em;
+      text-transform:uppercase;
+      font-size:17px;
+      color:var(--text-strong);
+    }
+
+    .brand-sub{
+      font-size:11px;
+      color:#9f9f9f;
+      font-style:italic;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+    }
+
+    .nav-links a{
+      position:relative;
+      color:var(--muted);
+      font-weight:500;
+      padding-bottom:3px;
+      white-space:nowrap;
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:0;
+      height:1px;
+      background-color:var(--gold);
+      transition:width .22s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[aria-current="page"]::after{
+      width:100%;
+    }
+
+    .nav-links a[aria-current="page"]{
+      color:var(--gold-light);
+    }
+
+    main{
+      max-width:1100px;
+      margin:26px auto 0;
+      padding:0 16px;
+    }
+
+    .hero{
+      border-radius:18px;
+      padding:22px 22px 18px;
+      background: radial-gradient(circle at top left, rgba(212,175,55,0.12) 0, #151515 55%, #101010 100%);
+      border:1px solid var(--gold-soft);
+      box-shadow:0 14px 32px rgba(0,0,0,0.6);
+      margin-bottom:30px;
+    }
+
+    .hero-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.22em;
+      color:var(--gold-light);
+      margin-bottom:6px;
+    }
+
+    .hero-title h1{
+      color:var(--text-strong);
+      margin:0;
+      font-size:26px;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      font-family:"Playfair Display", serif;
+    }
+
+    .hero p{
+      margin:10px 0 0;
+      color:#dedede;
+      max-width:780px;
+      font-size:14px;
+    }
+
+    .info-section{
+      margin-top:28px;
+    }
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px;
+      margin-top:16px;
+    }
+
+    .info-card{
+      background:linear-gradient(120deg, var(--panel) 0%, var(--panel-soft) 100%);
+      border-radius:14px;
+      padding:16px 16px 14px;
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow:0 8px 22px rgba(0,0,0,0.55);
+      transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .info-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 12px 30px rgba(0,0,0,0.7);
+      border-color:var(--gold-soft);
+      background:linear-gradient(120deg, #181818 0%, #202020 100%);
+    }
+
+    .info-card h2{
+      font-size:16px;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--gold-light);
+      margin:0 0 8px;
+    }
+
+    .info-card p{
+      margin:0;
+      font-size:14px;
+      color:#e0e0e0;
+    }
+
+    .info-note{
+      margin-top:26px;
+      font-size:13px;
+      color:#a8a8a8;
+      max-width:780px;
+    }
+
+    footer{
+      background:#050505;
+      color:#888;
+      text-align:center;
+      padding:22px 20px;
+      margin-top:46px;
+      font-size:11px;
+      border-top:1px solid rgba(212,175,55,0.15);
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+    }
+
+    footer span{
+      color:var(--gold-light);
+    }
+
+    @media (max-width:768px){
+      header{padding:10px 12px;}
+      .nav{flex-direction:column; align-items:flex-start;}
+      .nav-links{flex-wrap:wrap; justify-content:flex-start;}
+      .hero{padding:18px 16px;}
+      .hero-title h1{font-size:22px;}
+    }
+
+    @media (max-width:480px){
+      .hero{border-radius:14px;}
+      .info-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav" role="navigation" aria-label="Navigazione principale">
+      <a class="brand" href="homepage1.html">
+        <span class="brand-title">NEW LIFE</span>
+        <span class="brand-sub">Caffetteria &amp; Cucina</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Link principali">
+        <a href="homepage1.html">Home</a>
+        <a href="cucina.html">Cucina</a>
+        <a href="caffetteria.html">Caffetteria</a>
+        <a href="chi-siamo.html" aria-current="page">Chi Siamo</a>
+        <a href="contatti.html">Contatti</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-label">Chi siamo</div>
+      <div class="hero-title">
+        <h1 id="hero-title">La storia di New Life</h1>
+      </div>
+      <p>
+        New Life nasce come punto di incontro tra una cucina semplice ma curata e una caffetteria attenta ai dettagli.
+        Un luogo pensato per accogliere, mettere a proprio agio e accompagnare i diversi momenti della giornata:
+        dalla colazione al pranzo, fino all’aperitivo o al dopo cena.
+      </p>
+    </section>
+
+    <section class="info-section" aria-label="La nostra filosofia">
+      <div class="info-grid">
+        <article class="info-card">
+          <h2>Il progetto</h2>
+          <p>
+            L’idea alla base di New Life è offrire un ambiente sobrio, pulito e contemporaneo,
+            in cui la qualità delle materie prime e l’attenzione al servizio siano al centro dell’esperienza.
+            Il menù viene aggiornato con regolarità, seguendo la stagionalità e il gusto dei nostri ospiti.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h2>La filosofia</h2>
+          <p>
+            Prediligiamo piatti lineari, riconoscibili e ben bilanciati, evitando eccessi superflui.
+            La stessa attenzione è rivolta al banco caffetteria, dove selezioniamo miscele e preparazioni
+            pensate per una pausa di qualità, senza fretta.
+          </p>
+        </article>
+
+        <article class="info-card">
+          <h2>L’accoglienza</h2>
+          <p>
+            Crediamo in un servizio presente ma discreto, cordiale ma non invadente.
+            Ogni cliente deve sentirsi libero di vivere il locale secondo i propri tempi:
+            per un pranzo veloce, un incontro di lavoro o un momento di relax.
+          </p>
+        </article>
+      </div>
+
+      <p class="info-note">
+        New Life è un progetto in continua evoluzione: il menù, le proposte di caffetteria e gli orari
+        vengono adattati periodicamente per rispondere alle esigenze di chi ci sceglie ogni giorno.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p><span>&copy; 2025 New Life Bar</span> · Tutti i diritti riservati</p>
+  </footer>
+
+</body>
+</html>
